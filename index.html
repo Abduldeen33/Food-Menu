@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mozza Beach Resort Menu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #1a3c40;
+            --accent-color: #e4a120;
+            --light-bg: #f5f5f5;
+            --text-color: #333;
+            --light-text: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .menu-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .menu-item {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .item-header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .item-description {
+            padding: 1rem;
+            color: #666;
+            font-style: italic;
+            min-height: 80px;
+        }
+
+        .item-price {
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            border-top: 1px solid #eee;
+        }
+
+        .order-btn {
+            display: block;
+            background-color: var(--accent-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 0.8rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .order-btn:hover {
+            background-color: #c78a1b;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            background-color: #204d92;
+            margin: 10% auto;
+            padding: 2rem;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .close {
+            float: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .qrcode-container {
+            margin: 2rem auto;
+        }
+
+        .category-nav {
+            background-color: var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-list li a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--light-text);
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .category-list li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .category-list li a {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <button onclick="handleOrder()">Order Now</button>
+  
+</script>
+
+<script>
+    function orderNow() {
+        alert("Thank you for your order! We will contact you soon.");
+        window.location.href = 'order.html';
+    }
+</script>
+    <header>
+    <header>
+        <div class="logo">Mozza Beach Resort</div>
+        <div class="tagline">Exquisite Culinary Delights by the Sea</div>
+        <button onclick="window.location.href='https://www.mozzabeachresort.com'">Click here to visit our website</button>
+    </header>
+    <nav class="category-nav">
+        <ul class="category-list">
+            <li><a href="#appetizers">Appetizers</a></li>
+            <li><a href="#soups">Soups</a></li>
+            <li><a href="#salads">Salads</a></li>
+            <li><a href="#main-courses">Main Courses</a></li>
+            <li><a href="#seafood">Seafood</a></li>
+            <li><a href="#pasta-pizza">Pasta & Pizza</a></li>
+            <li><a href="#sandwiches">Sandwiches</a></li>
+            <li><a href="#burgers">Burgers</a></li>
+            <li><a href="#sides">Sides</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="appetizers" class="menu-section">
+            <h2 class="section-title">Appetizers</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">NUGGETS</div>
+                    <div class="item-description">Seasoned Chicken in Bread Crumbs served with Cocktail Sauce</div>
+                    <div class="item-price">NLE 250.00</div>
+                    <a class="order-btn" onclick="showQRCode('NUGGETS - NLE 250.00')">Order Now</a>
+        
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">FISH FINGERS</div>
+                    <div class="item-description">Finely cut Barracuda Seasoned in Bread Crumbs & deep fried</div>
+                    <div class="item-price">NLE 200.00</div>
+                    <a class="order-btn" onclick="showQRCode('FISH FINGERS - NLE 200.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">FISH CAKE</div>
+                    <div class="item-description">Barracuda deep fried in Bread Crumbs</div>
+                    <div class="item-price">NLE 250.00</div>
+                    <a class="order-btn" onclick="showQRCode('FISH CAKE - NLE 250.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">SPRING ROLLS</div>
+                    <div class="item-description">Medley of Vegetables in pastry, deep fried and Served with Soy Sauce</div>
+                    <div class="item-price">NLE 250.00</div>
+                    <a class="order-btn" onclick="showQRCode('SPRING ROLLS - NLE 250.00')">Order Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="soups" class="menu-section">
+            <h2 class="section-title">Soups</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">FISH PEPPER SOUP</div>
+                    <div class="item-description">Fresh fish pepper soup with onions</div>
+                    <div class="item-price">NLE 280.00</div>
+                    <a class="order-btn" onclick="showQRCode('FISH PEPPER SOUP - NLE 280.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">CREAMY CHICKEN CORN SOUP</div>
+                    <div class="item-description">Creamy chicken soup with sweet corn</div>
+                    <div class="item-price">NLE 320.00</div>
+                    <a class="order-btn" onclick="showQRCode('CREAMY CHICKEN CORN SOUP - NLE 320.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">LENTIL SOUP (V)</div>
+                    <div class="item-description">Cooked lentils with vegetables</div>
+                    <div class="item-price">NLE 300.00</div>
+                    <a class="order-btn" onclick="showQRCode('LENTIL SOUP - NLE 300.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">SWEET CORN SOUP (V)</div>
+                    <div class="item-description">Sweet corn vegetarian soup</div>
+                    <div class="item-price">NLE 320.00</div>
+                    <a class="order-btn" onclick="showQRCode('SWEET CORN SOUP - NLE 320.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">MUSHROOM SOUP (V)</div>
+                    <div class="item-description">Creamy mushroom soup</div>
+                    <div class="item-price">NLE 280.00</div>
+                    <a class="order-btn" onclick="showQRCode('MUSHROOM SOUP - NLE 280.00')">Order Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="salads" class="menu-section">
+            <h2 class="section-title">Salads</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">CLASSIC HOUSE SALAD</div>
+                    <div class="item-description">Crisp Lettuce, Tomatoes, Sliced Cucumber, Red Onion with house dressing</div>
+                    <div class="item-price">NLE 300.00</div>
+                    <a class="order-btn" onclick="showQRCode('CLASSIC HOUSE SALAD - NLE 300.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">MOZZARELLA SALAD</div>
+                    <div class="item-description">Tomatoes, Basil, Parsley, Avocado & Mozzarella</div>
+                    <div class="item-price">NLE 320.00</div>
+                    <a class="order-btn" onclick="showQRCode('MOZZARELLA SALAD - NLE 320.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">AVOCADO SALAD</div>
+                    <div class="item-description">Cucumber, Green pepper, Avocado with sauce</div>
+                    <div class="item-price">NLE 350.00</div>
+                    <a class="order-btn" onclick="showQRCode('AVOCADO SALAD - NLE 350.00')">Order Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="main-courses" class="menu-section">
+            <h2 class="section-title">Main Courses</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">CHICKEN CURRY WITH CHAPATI</div>
+                    <div class="item-description">Chicken in Curry Sauce with sour Yoghurt</div>
+                    <div class="item-price">NLE 500.00</div>
+                    <a class="order-btn" onclick="showQRCode('CHICKEN CURRY WITH CHAPATI - NLE 500.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">GRILLED CHICKEN KEBAB</div>
+                    <div class="item-description">Marinated Chicken breast on Skewers in Teriyaki Sauce</div>
+                    <div class="item-price">NLE 550.00</div>
+                    <a class="order-btn" onclick="showQRCode('GRILLED CHICKEN KEBAB - NLE 550.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">JOLLOF JAMBALAYA</div>
+                    <div class="item-description">Local spicy rice mixed with Chicken, Shrimps, Fish, Steak and Vegetables</div>
+                    <div class="item-price">NLE 500.00</div>
+                    <a class="order-btn" onclick="showQRCode('JOLLOF JAMBALAYA - NLE 500.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">POT ROASTED CHICKEN WITH COCONUT RICE</div>
+                    <div class="item-description">Pot Roasted Chicken seasoned in Provençal Sauce</div>
+                    <div class="item-price">NLE 400.00</div>
+                    <a class="order-btn" onclick="showQRCode('POT ROASTED CHICKEN WITH COCONUT RICE - NLE 400.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">BULGUR WAN POT</div>
+                    <div class="item-description">Spicy Bulgur cooked in a sauce with marinated Fish. Served with salad</div>
+                    <div class="item-price">NLE 400.00</div>
+                    <a class="order-btn" onclick="showQRCode('BULGUR WAN POT - NLE 400.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">GARI GRUN SOUP</div>
+                    <div class="item-description">Steamed Gari with marinated Fish and Roasted Vegetables</div>
+                    <div class="item-price">NLE 400.00</div>
+                    <a class="order-btn" onclick="showQRCode('GARI GRUN SOUP - NLE 400.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">RATATOUILLE (V)</div>
+                    <div class="item-description">Assorted Vegetables cooked in tomato Sauce. Served with Jasmin Rice</div>
+                    <div class="item-price">NLE 450.00</div>
+                    <a class="order-btn" onclick="showQRCode('RATATOUILLE - NLE 450.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">DAAL FRY WITH CHAPATI BREAD</div>
+                    <div class="item-description">Cooked Lentils with Indian Spices. Served with Chapatti Bread or Jasmin Rice</div>
+                    <div class="item-price">NLE 550.00</div>
+                    <a class="order-btn" onclick="showQRCode('DAAL FRY WITH CHAPATI BREAD - NLE 550.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">CHICKEN CORDON BLEU</div>
+                    <div class="item-description">Fillet Chicken breast, stuffed with Ham and Cheese</div>
+                    <div class="item-price">NLE 550.00</div>
+                    <a class="order-btn" onclick="showQRCode('CHICKEN CORDON BLEU - NLE 550.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">BAKED BONELESS CHICKEN THIGH</div>
+                    <div class="item-description">Boneless Chicken Thigh marinated in Honey, Soy, Mustard glaze. Served with French Fries or Fried Rice</div>
+                    <div class="item-price">NLE 550.00</div>
+                    <a class="order-btn" onclick="showQRCode('BAKED BONELESS CHICKEN THIGH - NLE 550.00')">Order Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="seafood" class="menu-section">
+            <h2 class="section-title">Seafood</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">BAKED BARRACUDA IN LEMON BUTTER SAUCE</div>
+                    <div class="item-description">Fillet Barracuda Baked in oven Served with Lime & Butter Sauce</div>
+                    <div class="item-price">NLE 550.00</div>
+                    <a class="order-btn" onclick="showQRCode('BAKED BARRACUDA IN LEMON BUTTER SAUCE - NLE 550.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">CURRIED SHRIMPS WITH COCONUT MILK</div>
+                    <div class="item-description">Shrimps in Curry Sauce and Coconut Milk Served with Cardamom Steamed Rice</div>
+                    <div class="item-price">NLE 600.00</div>
+                    <a class="order-btn" onclick="showQRCode('CURRIED SHRIMPS WITH COCONUT MILK - NLE 600.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">SA-LONE STYLE GRILLED LOBSTER</div>
+                    <div class="item-description">Grilled Lobster seasoned with Olive oil & Garlic in Groundnut Sauce</div>
+                    <div class="item-price">NLE 700.00</div>
+                    <a class="order-btn" onclick="showQRCode('SA-LONE STYLE GRILLED LOBSTER - NLE 700.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">QUEEN SHRIMPS</div>
+                    <div class="item-description">Deep fried Shrimps in bread crumbs with mashed potato and aromatic tomato sauce</div>
+                    <div class="item-price">NLE 650.00</div>
+                    <a class="order-btn" onclick="showQRCode('QUEEN SHRIMPS - NLE 650.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">GRILLED SNAPPER</div>
+                    <div class="item-description">Grilled Fresh Catch Served with Vegetables & Fried Rice or French Fries</div>
+                    <div class="item-price">NLE 600.00</div>
+                    <a class="order-btn" onclick="showQRCode('GRILLED SNAPPER - NLE 600.00')">Order Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="pasta-pizza" class="menu-section">
+            <h2 class="section-title">Pasta & Pizza</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">PEPPERONI PIZZA</div>
+                    <div class="item-description">Classic pepperoni pizza with mozzarella cheese</div>
+                    <div class="item-price">NLE 450.00</div>
+                    <a class="order-btn" onclick="showQRCode('PEPPERONI PIZZA - NLE 450.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">BBQ CHICKEN PIZZA</div>
+                    <div class="item-description">BBQ sauce, chicken and cheese</div>
+                    <div class="item-price">NLE 500.00</div>
+                    <a class="order-btn" onclick="showQRCode('BBQ CHICKEN PIZZA - NLE 500.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">BEEF PIZZA</div>
+                    <div class="item-description">Spiced beef with cheese and vegetables</div>
+                    <div class="item-price">NLE 500.00</div>
+                    <a class="order-btn" onclick="showQRCode('BEEF PIZZA - NLE 500.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">MOZZA PIZZA (V)</div>
+                    <div class="item-description">Tomatoes, basil and Mozzarella</div>
+                    <div class="item-price">NLE 400.00</div>
+                    <a class="order-btn" onclick="showQRCode('MOZZA PIZZA - NLE 400.00')">Order Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="sandwiches" class="menu-section">
+            <h2 class="section-title">Sandwiches</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">TUNA SWEET CORN SANDWICH</div>
+                    <div class="item-description">Tuna, Mayo, Sweet Corn, herbs & sliced bread</div>
+                    <div class="item-price">NLE 300.00</div>
+                    <a class="order-btn" onclick="showQRCode('TUNA SWEET CORN SANDWICH - NLE 300.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">CLUB SANDWICH</div>
+                    <div class="item-description">Grilled sliced Chicken and vegetables & sliced bread</div>
+                    <div class="item-price">NLE 350.00</div>
+                    <a class="order-btn" onclick="showQRCode('CLUB SANDWICH - NLE 350.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">SHAWARMA (Beef or Chicken) WRAP</div>
+                    <div class="item-description">Chicken breast or Beef, Garlic & spices wrapped with Lebanese Bread</div>
+                    <div class="item-price">NLE 300.00</div>
+                    <a class="order-btn" onclick="showQRCode('SHAWARMA WRAP - NLE 300.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">VEGETABLE WRAP (V)</div>
+                    <div class="item-description">Mixed vegetables with Lebanese Bread</div>
+                    <div class="item-price">NLE 280.00</div>
+                    <a class="order-btn" onclick="showQRCode('VEGETABLE WRAP - NLE 280.00')">Order Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="burgers" class="menu-section">
+            <h2 class="section-title">Burgers</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">BEEF BURGER</div>
+                    <div class="item-description">Beef patty with Onions, Paprika, Tomato, Salad and Bread</div>
+                    <div class="item-price">NLE 320.00</div>
+                    <a class="order-btn" onclick="showQRCode('BEEF BURGER - NLE 320.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">CHICKEN BURGER</div>
+                    <div class="item-description">Chicken Breast with Onions, Paprika, Tomato, Salad and Bread</div>
+                    <div class="item-price">NLE 300.00</div>
+                    <a class="order-btn" onclick="showQRCode('CHICKEN BURGER - NLE 300.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">CHEF'S SPECIAL</div>
+                    <div class="item-description">Chef's Special Recipe</div>
+                    <div class="item-price">NLE 350.00</div>
+                    <a class="order-btn" onclick="showQRCode('CHEF SPECIAL BURGER - NLE 350.00')">Order Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="sides" class="menu-section">
+            <h2 class="section-title">Extra Sides</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="item-header">STEAMED WHITE RICE</div>
+                    <div class="item-description">Plain steamed rice</div>
+                    <div class="item-price">NLE 150.00</div>
+                    <a class="order-btn" onclick="showQRCode('STEAMED WHITE RICE - NLE 150.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">FRIED RICE</div>
+                    <div class="item-description">Vegetable fried rice</div>
+                    <div class="item-price">NLE 200.00</div>
+                    <a class="order-btn" onclick="showQRCode('FRIED RICE - NLE 200.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">COCONUT RICE</div>
+                    <div class="item-description">Rice cooked with coconut milk</div>
+                    <div class="item-price">NLE 200.00</div>
+                    <a class="order-btn" onclick="showQRCode('COCONUT RICE - NLE 200.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">SAUTEED VEGETABLES</div>
+                    <div class="item-description">Mixed vegetables sautéed in butter</div>
+                    <div class="item-price">NLE 150.00</div>
+                    <a class="order-btn" onclick="showQRCode('SAUTEED VEGETABLES - NLE 150.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">SAUTEED POTATOES</div>
+                    <div class="item-description">Potatoes sautéed with herbs</div>
+                    <div class="item-price">NLE 150.00</div>
+                    <a class="order-btn" onclick="showQRCode('SAUTEED POTATOES - NLE 150.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">MASHED POTATOES</div>
+                    <div class="item-description">Creamy mashed potatoes</div>
+                    <div class="item-price">NLE 150.00</div>
+                    <a class="order-btn" onclick="showQRCode('MASHED POTATOES - NLE 150.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">BULGUR</div>
+                    <div class="item-description">Steamed bulgur wheat</div>
+                    <div class="item-price">NLE 150.00</div>
+                    <a class="order-btn" onclick="showQRCode('BULGUR - NLE 150.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">POTATO WEDGES</div>
+                    <div class="item-description">Seasoned potato wedges</div>
+                    <div class="item-price">NLE 180.00</div>
+                    <a class="order-btn" onclick="showQRCode('POTATO WEDGES - NLE 180.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">COLESLAW</div>
+                    <div class="item-description">Fresh coleslaw salad</div>
+                    <div class="item-price">NLE 120.00</div>
+                    <a class="order-btn" onclick="showQRCode('COLESLAW - NLE 120.00')">Order Now</a>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">FRENCH FRIES</div>
+                    <div class="item-description">Crispy french fries</div>
+                    <div class="item-price">NLE 180.00</div>
+                    <a class="order-btn" onclick="showQRCode('FRENCH FRIES - NLE 180.00')">Order Now</a>
+                </div>
+                
